@@ -1,0 +1,96 @@
+-- Databricks notebook source
+-- MAGIC %md
+-- MAGIC ### Data Architecture Evolution – Summary Notes with Examples
+-- MAGIC
+-- MAGIC #### 1. Data Warehouse (1980s–1990s)
+-- MAGIC
+-- MAGIC  A centralized system for storing structured data used for Business Intelligence (BI) and reporting. It uses ETL to load clean data into structured tables.
+-- MAGIC
+-- MAGIC ###### Key Features
+-- MAGIC - Stores structured data in tables (rows and columns)
+-- MAGIC - Data is transformed via ETL before loading
+-- MAGIC - Optimized for complex queries and reports
+-- MAGIC - Used by analysts and business users
+-- MAGIC
+-- MAGIC ###### Limitations
+-- MAGIC - No support for unstructured or semi-structured data
+-- MAGIC - Long ingestion and transformation time
+-- MAGIC - High cost to scale
+-- MAGIC - Rigid schema
+-- MAGIC - No real-time or machine learning support
+-- MAGIC
+-- MAGIC ###### Example
+-- MAGIC - Enterprise Reporting System using **Oracle Data Warehouse** or **Teradata**
+-- MAGIC - A retail chain storing sales, inventory, and customer data in **Microsoft SQL Server Data Warehouse**
+-- MAGIC
+-- MAGIC ###### Why Data Lake Emerged
+-- MAGIC Due to lack of flexibility, cost, and inability to handle diverse data types, Data Lakes emerged to support varied and large-scale data needs.
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC #### 2. Data Lake (2010s)
+-- MAGIC
+-- MAGIC  A centralized storage system that can store raw structured, semi-structured, and unstructured data in any format at low cost.
+-- MAGIC
+-- MAGIC ###### Key Features
+-- MAGIC - Stores all formats (CSV, JSON, images, videos, etc.)
+-- MAGIC - ELT: load first, transform later
+-- MAGIC - Built on scalable storage like S3, HDFS, ADLS
+-- MAGIC - Used by data scientists and engineers
+-- MAGIC
+-- MAGIC ###### Limitations
+-- MAGIC - No ACID guarantees (data can become inconsistent)
+-- MAGIC - Schema evolution is hard
+-- MAGIC - Slow queries for BI tools
+-- MAGIC - No data versioning or rollback
+-- MAGIC - Poor governance and access control
+-- MAGIC
+-- MAGIC ###### Example
+-- MAGIC - **Amazon S3-based Data Lake** storing clickstream data, logs, images, JSON, and raw transaction records
+-- MAGIC - **Azure Data Lake Storage** used by IoT companies to store sensor data
+-- MAGIC
+-- MAGIC ###### Why Lakehouse Emerged
+-- MAGIC To combine the flexibility of data lakes with the reliability and performance of data warehouses.
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC #### 3. Lakehouse (Late 2010s–2020s)
+-- MAGIC
+-- MAGIC  A modern architecture that combines the low-cost, flexible storage of data lakes with the performance, reliability, and governance of data warehouses.
+-- MAGIC
+-- MAGIC ###### Key Features
+-- MAGIC - Open file formats (Parquet, Delta, ORC)
+-- MAGIC - ACID transactions
+-- MAGIC - Schema evolution and enforcement
+-- MAGIC - Time travel and version control
+-- MAGIC - Supports both batch and streaming
+-- MAGIC - Suited for BI + ML workloads
+-- MAGIC
+-- MAGIC ###### Example
+-- MAGIC - **Databricks Lakehouse Platform** combining streaming + batch + ML in one architecture
+-- MAGIC - A fintech company storing raw logs and financial transactions in Parquet format with ACID controls using **Apache Iceberg**
+-- MAGIC
+-- MAGIC ###### Why Delta Lake Came In
+-- MAGIC To bring transactionality, schema management, and reliability to cloud-based data lakes.
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC #### 4. Delta Lake (2019 – Open-sourced by Databricks)
+-- MAGIC
+-- MAGIC  An open-source storage layer that brings ACID transactions, versioning, and schema enforcement to Data Lakes, transforming them into Lakehouses.
+-- MAGIC
+-- MAGIC ###### Key Features
+-- MAGIC - ACID transactions
+-- MAGIC - Schema evolution and enforcement
+-- MAGIC - Time travel and version history
+-- MAGIC - Optimized queries (Delta Engine)
+-- MAGIC - Works with Spark, MLflow, and Databricks
+-- MAGIC - Batch and streaming support
+-- MAGIC
+-- MAGIC ###### Example
+-- MAGIC - A streaming analytics system built on **Delta Lake + Apache Spark** to process real-time stock trading data
+-- MAGIC - A marketing analytics platform storing structured + semi-structured data in **Azure Data Lake + Delta format**
+-- MAGIC
+
+-- COMMAND ----------
+

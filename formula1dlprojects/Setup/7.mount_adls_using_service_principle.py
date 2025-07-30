@@ -1,0 +1,34 @@
+# Databricks notebook source
+# MAGIC %md
+# MAGIC #### Mount Azure Data Lake Using Service Principal
+# MAGIC 1. Get client_id, tennant_id and client_secret from key vault
+# MAGIC 2. Set Spark config with App/Cliend Id, Directory/Tennant Id & Secret
+# MAGIC 3. call the file system utility to mount the storage
+# MAGIC 4. Explore other file system utilities related to mount(list of mounts, unmount)
+# MAGIC
+
+# COMMAND ----------
+
+dbutils.secrets.listScopes()
+
+# COMMAND ----------
+
+dbutils.secrets.list("formula1-scope")
+
+# COMMAND ----------
+
+client_id = dbutils.secrets.get(scope='formula1-scope',key='formula1-client-id')
+tennant_id = dbutils.secrets.get(scope='formula1-scope',key='formula1-tennant-id')
+client_secret = dbutils.secrets.get(scope='formula1-scope',key='formula1dl-client-secret')
+
+# COMMAND ----------
+
+configs = {"fs.azure.account.auth.type": "OAuth",
+          "fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+          "fs.azure.account.oauth2.client.id": client_id,
+          "fs.azure.account.oauth2.client.secret": client_secret,
+          "fs.azure.account.oauth2.client.endpoint": f"https://login.microsoftonline.com/{tennant_id}/oauth2/token"}
+
+# COMMAND ----------
+
+display(dbutils.fs.ls('/mnt/formula1dlprojects/'))
